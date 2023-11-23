@@ -1,5 +1,5 @@
-#library(babynames)
-#library(tidyverse)
+library(babynames)
+library(tidyverse)
 
 # Filter for males born between 1900 and 1999
 males_1900_1999 <- babynames %>% 

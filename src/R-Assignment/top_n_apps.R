@@ -1,5 +1,7 @@
 library(tidyverse)
 library(ggplot2)
+
+# Read data
 google_playstore <- read.csv('Google-Playstore.csv')
 
 # Find all categories 
@@ -49,6 +51,7 @@ ggplot(top_n_installed_categories, aes(x = '', y = perc, fill = Category)) +
   labs(title = 'Top 10 Installed Categories') +
   theme_void() 
 
+# Dispaly as a bar graph
 top_n_installed_categories %>% 
   slice_head(n = 10) %>%
   ggplot(aes(x = factor(Category, levels = Category), y = perc, fill = factor(Category, levels = Category))) +

@@ -41,10 +41,11 @@ category_installs %>%
   theme_minimal() + 
   guides(fill = 'none')
 
+# Define install ranges
+install_ranges <- c(0, 100000, 1000000, 10000000, Inf)
+install_ranges_labels <- c('Low', 'Medium', 'High', 'Very High')
 
-install_ranges <- c(0, 100000, 1000000, Inf)
-install_ranges_labels <- c('Low', 'Medium', 'High')
-
+# Group based on categories and install ranges in the category
 category_installs_ranged <- google_playstore %>%
   select(Category, Maximum.Installs) %>%
   mutate(install_range = cut(Maximum.Installs, breaks = install_ranges, labels = install_ranges_labels, include.lowest = TRUE)) %>%
@@ -53,18 +54,18 @@ category_installs_ranged <- google_playstore %>%
     
 options(scipen = 999)
 
+# Display X range of installed apps
 category_installs_ranged %>% 
-  filter(install_range == 'Low') %>%
-  ggplot(aes(x = avg_installs , y = reorder(Category, avg_installs ), fill = Category)) +
+  filter(install_range == 'Very High') %>%
+  ggplot(aes(x = median_installs , y = reorder(Category, median_installs ), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +
-  labs(title = 'Average number of installs per category', x = 'Average Number of Installs', y = 'Category', fill = 'Category') +
+  labs(title = 'Median number of installs per category in low install range', x = 'Median Number of Installs', y = 'Category', fill = 'Category') +
   theme_minimal() + 
   guides(fill = 'none')
 
+
 options(scipen = 0)
 
-category_installs_ranged %>% 
-  filter(install_range == 'Low')
 
 # ggplot(category_installs_ranged, aes(x = install_range, y = avg_installs, fill = Category)) +
 #   geom_bar(stat = 'identity', position = 'dodge') +

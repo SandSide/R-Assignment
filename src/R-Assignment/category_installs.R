@@ -22,6 +22,3 @@ category_installs %>%
 # Summarise data
 category_installs_summary <- category_installs %>%
   summarise(avg_installs = mean(installs), avg_perc = mean(perc), median_installs = median(installs), median_perc = median(perc))
-
-
-

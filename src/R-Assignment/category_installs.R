@@ -19,6 +19,14 @@ category_installs %>%
   theme_minimal() + 
   guides(fill = 'none')
 
+# Display median installs per category
+category_installs %>% 
+  ggplot(aes(x = median_installs, y = reorder(Category, median_installs), fill = Category)) +
+  geom_bar(stat = 'identity', width = 1, color = 'white') +
+  labs(title = 'Median number of installs per category', x = 'Median Number of Installs', y = 'Category', fill = 'Category') +
+  theme_minimal() + 
+  guides(fill = 'none')
+
 # Display average installs per category
 category_installs %>% 
   ggplot(aes(x = avg_installs, y = reorder(Category, avg_installs), fill = Category)) +
@@ -26,7 +34,6 @@ category_installs %>%
   labs(title = 'Average number of installs per category', x = 'Average Number of Installs', y = 'Category', fill = 'Category') +
   theme_minimal() + 
   guides(fill = 'none')
-
 
 
 # Summarise data

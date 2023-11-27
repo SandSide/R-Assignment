@@ -49,10 +49,10 @@ category_installs_ranged <- google_playstore %>%
   group_by(Category, install_range) %>%
   summarise(total_installs = sum(Maximum.Installs), avg_installs = mean(Maximum.Installs), median_installs = median(Maximum.Installs))
     
-ggplot(category_installs_ranged, aes(x = install_range, y = avg_installs, fill = Category)) +
-  geom_bar(stat = 'identity', position = 'dodge') +
-  labs(title = 'Average Maximum Installs by Install Range and Category', x = 'Install Range', y = 'Average Maximum Installs') +
-  theme_minimal()
+# ggplot(category_installs_ranged, aes(x = install_range, y = avg_installs, fill = Category)) +
+#   geom_bar(stat = 'identity', position = 'dodge') +
+#   labs(title = 'Average Maximum Installs by Install Range and Category', x = 'Install Range', y = 'Average Maximum Installs') +
+#   theme_minimal()
 
   
 

@@ -6,14 +6,16 @@ category_installs <- google_playstore %>%
   group_by(Category) %>% 
   summarise(installs = sum(Maximum.Installs), avg_installs = mean(Maximum.Installs), median_installs = median(Maximum.Installs))
 
-# Summaries data
-category_installs_summary <- category_installs %>%
-  summarise(avg_installs = mean(installs), avg_perc = mean(perc), median_installs = median(installs), median_perc = median(perc))
-
 # Calculate installs as a percentage of total installs
 category_installs <- category_installs %>% 
   mutate(perc = (installs/total_installs) * 100) %>% 
   mutate(perc = round(perc, 2))
+
+# Summaries data
+category_installs_summary <- category_installs %>%
+  summarise(avg_installs = mean(installs), avg_perc = mean(perc), median_installs = median(installs), median_perc = median(perc))
+
+
 
 # Display as a vertical bar graph
 category_installs %>% 
@@ -49,6 +51,21 @@ category_installs_ranged <- google_playstore %>%
   group_by(Category, install_range) %>%
   summarise(total_installs = sum(Maximum.Installs), avg_installs = mean(Maximum.Installs), median_installs = median(Maximum.Installs))
     
+options(scipen = 999)
+
+category_installs_ranged %>% 
+  filter(install_range == 'Low') %>%
+  ggplot(aes(x = avg_installs , y = reorder(Category, avg_installs ), fill = Category)) +
+  geom_bar(stat = 'identity', width = 1, color = 'white') +
+  labs(title = 'Average number of installs per category', x = 'Average Number of Installs', y = 'Category', fill = 'Category') +
+  theme_minimal() + 
+  guides(fill = 'none')
+
+options(scipen = 0)
+
+category_installs_ranged %>% 
+  filter(install_range == 'Low')
+
 # ggplot(category_installs_ranged, aes(x = install_range, y = avg_installs, fill = Category)) +
 #   geom_bar(stat = 'identity', position = 'dodge') +
 #   labs(title = 'Average Maximum Installs by Install Range and Category', x = 'Install Range', y = 'Average Maximum Installs') +

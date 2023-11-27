@@ -12,9 +12,12 @@ app_installs_by_category <- app_installs_by_category %>%
   mutate(perc = round(perc, 2))
 
 # Display as a bar graph
-installs_by_category %>% 
+app_installs_by_category %>% 
   ggplot(aes(x = perc, y = reorder(Category, perc), fill = Category)) +
-  geom_bar(stat = 'identity', width = 1, position = position_dodge2(width = 0.8), color = 'white') +
+  geom_bar(stat = 'identity', width = 1, color = 'white') +
   labs(title = 'Total Installs per Category as a Percentage of Total Installs', x = 'Percentage of Installs', y = 'Category', fill = 'Category') +
-  theme_minimal() +
-  guides(fill="none")
+  theme_minimal() + 
+  guides(fill = 'none')
+
+
+

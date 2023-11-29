@@ -25,6 +25,8 @@ category_installs %>%
   theme_minimal() + 
   guides(fill = 'none')
 
+
+
 # Display median installs per category
 category_installs %>% 
   ggplot(aes(x = median_installs, y = reorder(Category, median_installs), fill = Category)) +
@@ -56,7 +58,7 @@ options(scipen = 999)
 
 # Display X range of installed apps
 category_installs_ranged %>% 
-  filter(install_range == 'High') %>%
+  filter(install_range == 'Low') %>%
   ggplot(aes(x = median_installs , y = reorder(Category, median_installs ), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +
   labs(title = 'Median number of installs per category in low install range', x = 'Median Number of Installs', y = 'Category', fill = 'Category') +
@@ -64,17 +66,14 @@ category_installs_ranged %>%
   guides(fill = 'none')
 
 
-options(scipen = 0)
-
+# For each install, range figure out % more or less from median
+category_installs_ranged %>% 
+  group_by(install_range) %>%
+  mutate(min_range_diff = if(install_range == 'Low', (median_installs - 100000)/100000 * 100)) %>%
+  mutate(min_range_diff = if(install_range == 'Medium', (median_installs - 1000000)/1000000 * 100)) %>%
+  mutate(min_range_diff = if(install_range == 'High', (median_installs - 10000000)/10000000 * 100))
 
 # ggplot(category_installs_ranged, aes(x = install_range, y = avg_installs, fill = Category)) +
 #   geom_bar(stat = 'identity', position = 'dodge') +
 #   labs(title = 'Average Maximum Installs by Install Range and Category', x = 'Install Range', y = 'Average Maximum Installs') +
 #   theme_minimal()
-
-  
-
-
-
-
-

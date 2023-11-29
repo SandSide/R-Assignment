@@ -56,7 +56,7 @@ options(scipen = 999)
 
 # Display X range of installed apps
 category_installs_ranged %>% 
-  filter(install_range == 'Very High') %>%
+  filter(install_range == 'High') %>%
   ggplot(aes(x = median_installs , y = reorder(Category, median_installs ), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +
   labs(title = 'Median number of installs per category in low install range', x = 'Median Number of Installs', y = 'Category', fill = 'Category') +

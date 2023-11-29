@@ -27,7 +27,7 @@ babynames_of_intrest_n_years <- babynames_of_intrest %>%
 ggplot(babynames_of_intrest, aes( x = year, y = n, group = name, color = name)) +
   geom_line(size = 1) +
   #geom_point(data = babynames_of_intrest_n_years, shape = 19, size = 1.5) +
-  labs(title = "Line Plot of the Number of Babies for Top 3 Male Baby Names in US Over Years",
+  labs(title = "Number of Babies Born Over Years for Top 3 Male Baby Names in US",
        x = "Year",
        y = "Number of Babies Born with the Name") +
   theme_minimal() +

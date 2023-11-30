@@ -54,8 +54,8 @@ category_installs_ranged %>% ggplot(aes(x = 1, y = range_diff, color = install_r
   theme(axis.title.x=element_blank(), axis.text.x = element_blank())
 
 
+category_installs_ranged_summary <- category_installs_ranged %>%
+  group_by(install_range) %>%
+  summarise(avg_range_diff = mean(avg_installs), median_range_diff = median(median_installs))
 
-# ggplot(category_installs_ranged, aes(x = install_range, y = avg_installs, fill = Category)) +
-#   geom_bar(stat = 'identity', position = 'dodge') +
-#   labs(title = 'Average Maximum Installs by Install Range and Category', x = 'Install Range', y = 'Average Maximum Installs') +
-#   theme_minimal()
+

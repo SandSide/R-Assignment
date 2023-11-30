@@ -2,6 +2,7 @@
 install_ranges <- c(0, 100000, 1000000, 10000000, Inf)
 install_ranges_labels <- c('Low', 'Medium', 'High', 'Very High')
 
+
 # Group based on categories and install ranges in the category
 category_installs_ranged <- google_playstore %>%
   select(Category, Maximum.Installs) %>%
@@ -9,7 +10,7 @@ category_installs_ranged <- google_playstore %>%
   group_by(Category, install_range) %>%
   summarise(total_installs = sum(Maximum.Installs), avg_installs = mean(Maximum.Installs), median_installs = median(Maximum.Installs))
 
-options(scipen = 999)
+
 
 # Display X range of installed apps
 category_installs_ranged %>% 
@@ -20,23 +21,37 @@ category_installs_ranged %>%
   theme_minimal() + 
   guides(fill = 'none')
 
-# For each install, range figure out % more or less from median
-category_installs_ranged %>% 
+
+
+
+
+low_installs <- category_installs_ranged %>% 
   filter(install_range == 'Low') %>%
-  mutate(min_range_diff = (median_installs/100000) * 100)
+  mutate(range_diff = (median_installs/100000) * 100)
 
-# For each install, range figure out % more or less from median
-category_installs_ranged %>% 
+med_installs <- category_installs_ranged %>% 
   filter(install_range == 'Medium') %>%
-  mutate(min_range_diff = (median_installs - 100000)/100000 * 100)
+  mutate(range_diff = (median_installs - 100000)/100000 * 100)
 
-category_installs_ranged %>% 
+high_installs <- category_installs_ranged %>% 
   filter(install_range == 'High') %>%
-  mutate(min_range_diff = (median_installs - 1000000)/1000000 * 100)
+  mutate(range_diff = (median_installs - 1000000)/1000000 * 100)
 
-category_installs_ranged %>% 
+very_high_installs <- category_installs_ranged %>% 
   filter(install_range == 'Very High') %>%
-  mutate(min_range_diff = (avg_installs - 10000000)/10000000 * 100)
+  mutate(range_diff = (median_installs - 10000000)/10000000 * 100)
+
+
+
+dfs <- list(low_installs, med_installs, high_installs, very_high_installs)
+category_installs_ranged <- bind_rows(dfs)
+
+
+category_installs_ranged %>% ggplot(aes(x = 1, y = range_diff, color = install_range)) +
+  geom_point(position = position_jitter(width = 1)) +
+  labs(title = 'Difference between media install and install range as a percentage for each category', x = 'Install Range', y = 'Percentage Diffrence from Median') +
+  theme_minimal() +
+  theme(axis.title.x=element_blank(), axis.text.x = element_blank())
 
 
 

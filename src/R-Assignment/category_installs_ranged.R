@@ -47,8 +47,8 @@ dfs <- list(low_installs, med_installs, high_installs, very_high_installs)
 category_installs_ranged <- bind_rows(dfs)
 
 
-category_installs_ranged %>% ggplot(aes(x = 1, y = range_diff, color = install_range)) +
-  geom_point(position = position_jitter(width = 1)) +
+category_installs_ranged %>% ggplot(aes(x = 1, y = range_diff, color = install_range, shape = install_range)) +
+  geom_point(position = position_jitter(width = 1), size = 2) +
   labs(title = 'Difference between media install and install range as a percentage for each category', x = 'Install Range', y = 'Percentage Diffrence from Median') +
   theme_minimal() +
   theme(axis.title.x=element_blank(), axis.text.x = element_blank())
@@ -56,6 +56,8 @@ category_installs_ranged %>% ggplot(aes(x = 1, y = range_diff, color = install_r
 
 category_installs_ranged_summary <- category_installs_ranged %>%
   group_by(install_range) %>%
-  summarise(avg_range_diff = mean(avg_installs), median_range_diff = median(median_installs))
+  summarise(avg_installs = mean(avg_installs), median_installs = median(median_installs))
+
+
 
 

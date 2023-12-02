@@ -1,20 +1,3 @@
-range_categories <- function(){
-  
-  # Define install ranges
-  install_ranges <- c(0, 100000, 1000000, 10000000, Inf)
-  install_ranges_labels <- c('Low', 'Medium', 'High', 'Very High')
-  
-  # Group based on categories and install ranges in the category
-  category_installs_ranged <- google_playstore %>%
-    select(Category, Maximum.Installs) %>%
-    mutate(install_range = cut(Maximum.Installs, breaks = install_ranges, labels = install_ranges_labels, include.lowest = TRUE)) %>%
-    group_by(Category, install_range) %>%
-    summarise(total_installs = sum(Maximum.Installs), avg_installs = mean(Maximum.Installs), median_installs = median(Maximum.Installs))
-  
-  return(category_installs_ranged)
-}
-
-
 calculate_difference_from_range <- function(){
   
   low_installs <- category_installs_ranged %>% 
@@ -40,7 +23,12 @@ calculate_difference_from_range <- function(){
   return(category_installs_ranged)
 }
 
-category_installs_ranged <- range_categories()
+category_installs_ranged <- range_categories_by_installs() %>%
+  group_by(Category, install_range) %>%
+    summarise(total_installs = sum(Maximum.Installs),
+              avg_installs = mean(Maximum.Installs),
+              median_installs = median(Maximum.Installs))
+
 
 # Display X range of installed apps
 category_installs_ranged %>% 

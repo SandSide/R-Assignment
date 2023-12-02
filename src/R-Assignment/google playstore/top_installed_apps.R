@@ -6,7 +6,18 @@ top_1000_installed_apps <- google_playstore %>%
 top_1000_installed_apps %>%
   summarise(perc_of_total_installs = sum(Maximum.Installs)/total_installs * 100)
 
-# Calcualte distribution of top 1000 apps by category
+# How much are top 100 apps of total installs
+google_playstore %>%
+  top_n(100, Maximum.Installs) %>%
+  summarise(perc_of_total_installs = sum(Maximum.Installs)/total_installs * 100)
+
+# How much are top 100 apps of total installs
+google_playstore %>%
+  top_n(10, Maximum.Installs) %>%
+  summarise(perc_of_total_installs = sum(Maximum.Installs)/total_installs * 100)
+
+
+# Calculate distribution of 
 top_1000_installed_apps %>%
   group_by(Category) %>%
   summarise(perc_of_apps = (n()/1000) * 100) %>%

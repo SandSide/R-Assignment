@@ -11,13 +11,14 @@ category_installs <- google_playstore %>%
   mutate(perc = round(perc, 2))
 
 # Summaries data
-category_installs_summary <- category_installs %>%
+category_installs %>%
   summarise(avg_installs = mean(installs), 
-            avg_perc = mean(perc), median_installs = median(installs),
+            avg_perc = mean(perc), 
+            median_installs = median(installs),
             median_perc = median(perc))
 
 
-# Display as a vertical bar graph
+# Display total installs per category as a percatnge of total installs
 category_installs %>% 
   ggplot(aes(x = perc, y = reorder(Category, perc), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +
@@ -30,7 +31,7 @@ category_installs %>%
 category_installs %>% 
   ggplot(aes(x = median_installs, y = reorder(Category, median_installs), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +
-  labs(title = 'Median number of installs per category', x = 'Median Number of Installs', y = 'Category', fill = 'Category') +
+  labs(title = 'Median Number of Installs per Category', x = 'Median Installs', y = 'Category', fill = 'Category') +
   theme_minimal() + 
   guides(fill = 'none')
 
@@ -38,6 +39,6 @@ category_installs %>%
 category_installs %>% 
   ggplot(aes(x = avg_installs, y = reorder(Category, avg_installs), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +
-  labs(title = 'Average number of installs per category', x = 'Average Number of Installs', y = 'Category', fill = 'Category') +
+  labs(title = 'Average Number of Installs per Category', x = 'Average Installs', y = 'Category', fill = 'Category') +
   theme_minimal() + 
   guides(fill = 'none')

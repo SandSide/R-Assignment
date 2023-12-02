@@ -8,13 +8,9 @@ category_installs <- google_playstore %>%
   mutate(perc = (installs/total_installs) * 100) %>% 
   mutate(perc = round(perc, 2))
 
-
-
-
 # Summaries data
 category_installs_summary <- category_installs %>%
   summarise(avg_installs = mean(installs), avg_perc = mean(perc), median_installs = median(installs), median_perc = median(perc))
-
 
 
 # Display as a vertical bar graph

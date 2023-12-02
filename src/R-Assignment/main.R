@@ -1,4 +1,7 @@
-library(tidyverse)
+set_up <- function(){
+  library(tidyverse)
+  options(scipen = 999)
+}
 
 get_dataset <- function(){
   

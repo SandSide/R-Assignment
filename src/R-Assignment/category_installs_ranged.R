@@ -14,6 +14,7 @@ range_categories <- function(){
   return(category_installs_ranged)
 }
 
+
 calculate_difference_from_range <- function(){
   
   low_installs <- category_installs_ranged %>% 
@@ -40,24 +41,17 @@ calculate_difference_from_range <- function(){
 }
 
 category_installs_ranged <- range_categories()
-category_installs_ranged <- calculate_difference_from_range()
-
 
 # Display X range of installed apps
 category_installs_ranged %>% 
-  filter(install_range == 'Very High') %>%
-  ggplot(aes(x = median_installs , y = reorder(Category, median_installs ), fill = Category)) +
+  ggplot(aes(x = median_installs , y = reorder(Category, median_installs), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +
-  labs(title = 'Median number of installs per category in low install range', x = 'Median Number of Installs', y = 'Category', fill = 'Category') +
+  labs(title = 'Median number of installs per category per install range', x = 'Median Number of Installs', y = 'Category', fill = 'Category') +
   theme_minimal() + 
   guides(fill = 'none')
 
 
-
-
-
-
-
+category_installs_ranged <- calculate_difference_from_range()
 
 category_installs_ranged %>% ggplot(aes(x = 1, y = range_diff, color = install_range, shape = install_range)) +
   geom_point(position = position_jitter(width = 1), size = 2) +

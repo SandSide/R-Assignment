@@ -5,7 +5,7 @@ free_paid_apps <- google_playstore %>%
             free_apps = sum(Free == 'True'), 
             free_to_paid_ratio = free_apps/paid_apps)
 
-
+# Calculate ratio of fre and paids apps by category
 free_paid_category <- google_playstore %>%
   group_by(Category) %>%
   summarise(paid_apps = sum(Free == 'False'), 
@@ -21,11 +21,13 @@ free_paid_category %>%
   geom_point()
 
 
+# Find how many free and paid apps ahve in game purchases
 google_playstore %>%
   group_by(Free) %>%
   summarise(total_in_app_purchase_apps = sum(In.App.Purchases == 'True')) %>%
   arrange(desc(total_in_app_purchase_apps))
 
+# Calculate by category how many apps are free/paid & have/dont have in game purchases
 free_paid_purchase_category <- google_playstore %>%
   group_by(Category) %>%
   summarise(free_purchase = sum(Free == 'True' & In.App.Purchases == 'True'),

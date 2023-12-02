@@ -16,5 +16,8 @@ free_paid_category <- google_playstore %>%
   arrange(desc(paid_apps))
 
 
-
+free_paid_category %>% 
+  ggplot(aes(x = paid_apps, y = free_apps, color = Category)) +
+  geom_point()
+     
 

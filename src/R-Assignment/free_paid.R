@@ -25,3 +25,20 @@ google_playstore %>%
   group_by(Free) %>%
   summarise(total_in_app_purchase_apps = sum(In.App.Purchases == 'True')) %>%
   arrange(desc(total_in_app_purchase_apps))
+
+free_paid_purchase_category <- google_playstore %>%
+  group_by(Category) %>%
+  summarise(free_purchase = sum(Free == 'True' & In.App.Purchases == 'True'),
+            paid_purchase = sum(Free == 'False' & In.App.Purchases == 'True'),
+            free_purchase_free = sum(Free == 'True' & In.App.Purchases == 'False'),
+            paid_purchase_free = sum(Free == 'False' & In.App.Purchases == 'False')) %>%
+  arrange(desc(free_purchase_free))
+
+free_paid_purchase_category %>% 
+  ggplot(aes(x = free_purchase, y = free_purchase_free)) +
+  geom_point()
+
+free_paid_purchase_category %>% 
+  ggplot(aes(x = free_purchase_free, y = paid_purchase_free)) +
+  geom_point()
+

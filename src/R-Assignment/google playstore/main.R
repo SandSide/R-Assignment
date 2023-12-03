@@ -6,7 +6,7 @@ set_up <- function(){
 get_dataset <- function(){
   
   # Read data
-  google_playstore <- read.csv('Google-Playstore.csv') %>%
+  google_playstore <- read.csv('google playstore/Google-Playstore.csv') %>%
     select(-App.Id, -Currency, -Minimum.Android, -Developer.Website, -Developer.Email, -Privacy.Policy, -Scraped.Time)
   
   # A group of categories apart of gaming category
@@ -45,4 +45,3 @@ range_categories_by_installs <- function(){
 google_playstore <- get_dataset()
 
 
-rm(list = ls())

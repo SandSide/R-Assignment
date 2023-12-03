@@ -40,8 +40,7 @@ ggplot(top_1000_stats, aes(x = installed_apps, y = perc_of_total_installs, fill 
   guides(fill = 'none')
 
 
-# Find first paid app sorted my installs amount
-first_paid_app_by_installs <- google_playstore %>%
-  filter(Free == 'False') %>%
-  arrange(desc(Maximum.Installs)) %>%
-  slice(1)
+# Find first paid app sorted by max installs
+first_paid_app <- google_playstore[which(google_playstore$Free == 'False')[1], ]
+
+         

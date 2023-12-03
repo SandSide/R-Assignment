@@ -29,5 +29,3 @@ google_playstore %>%
        y = 'Installs') +
   theme_minimal()
 
-
-

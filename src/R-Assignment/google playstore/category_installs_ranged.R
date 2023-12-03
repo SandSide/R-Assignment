@@ -27,7 +27,8 @@ category_installs_ranged <- range_categories_by_installs() %>%
   group_by(Category, install_range) %>%
     summarise(total_installs = sum(Maximum.Installs),
               avg_installs = mean(Maximum.Installs),
-              median_installs = median(Maximum.Installs))
+              median_installs = median(Maximum.Installs),
+              app_count = n())
 
 
 # Display X range of installed apps
@@ -48,10 +49,20 @@ category_installs_ranged %>% ggplot(aes(x = 1, y = range_diff, color = install_r
   theme(axis.title.x=element_blank(), axis.text.x = element_blank())
 
 
+
 category_installs_ranged_summary <- category_installs_ranged %>%
   group_by(install_range) %>%
   summarise(avg_installs = mean(avg_installs), median_installs = median(median_installs))
 
 
+
+# Frequency of apps by install range
+range_categories_by_installs() %>%
+  ggplot(aes(x = install_range)) +
+  geom_bar() +
+  labs(title = "Distribution of Apps by Installs",
+       x = "Install Range",
+       y = "Frequency") +
+  theme_minimal()
 
 

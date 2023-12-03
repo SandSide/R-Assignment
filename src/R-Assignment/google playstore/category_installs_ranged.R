@@ -12,7 +12,8 @@ sorted_install_range <- google_playstore %>%
 # Count apps amount based on installs
 app_count_by_installs <- google_playstore %>%
   group_by(Installs) %>%
-  summarise(total_apps = n()) %>%
+  summarise(apps = n(),
+            perc_of_apps = (apps/total_apps) * 100 ) %>%
   arrange(Installs)
 
 # Sort based on installs
@@ -29,3 +30,13 @@ google_playstore %>%
        y = 'Installs') +
   theme_minimal()
 
+
+# Display distribution of apps by installs as a percentage
+app_count_by_installs %>%
+  filter(!is.na(Installs)) %>%
+  ggplot(aes(x = perc_of_apps, y = factor(Installs, levels = sorted_install_range$Installs))) +
+  geom_bar(stat = 'identity') +
+  labs(title = 'Percentage of Apps by Installs',
+       x = 'Percentage of Apps',
+       y = 'Installs') +
+  theme_minimal()

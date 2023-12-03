@@ -41,7 +41,7 @@ range_categories_by_installs <- function(){
 }
 
 
-# Store dataset
+# Store data set
 google_playstore <- get_dataset()
 
 total_apps <- nrow(google_playstore)

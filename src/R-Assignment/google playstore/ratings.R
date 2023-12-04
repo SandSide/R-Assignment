@@ -58,27 +58,17 @@ casino_rating_dist <- google_playstore %>%
        y = 'Frequency')
   
 
-
-# Distribution of ratings for shopping category
-shopping_rating_dist <- google_playstore %>%
-  filter(Category == 'Shopping',
-         Rating > 0) %>%
-  ggplot(aes(x = Rating)) +
-  geom_histogram(binwidth = 0.5, color = 4, fill = 'white') +
-  labs(title = 'Distribution of Ratings for Shopping Category',
-       x = 'Rating',
-       y = 'Frequency')
-
-
 # Distribution of ratings for events category
-events_rating_dist <- google_playstore %>%
-  filter(Category == 'Events',
+anomaly_category_rating_dist <- google_playstore %>%
+  filter(Category == 'Events' | Category == 'Shopping',
          Rating > 0) %>%
+  group_by(Category) %>%
   ggplot(aes(x = Rating)) +
   geom_histogram(binwidth = 0.5, color = 4, fill = 'white') +
   labs(title = 'Distribution of Ratings for Events Category',
        x = 'Rating',
-       y = 'Frequency')
+       y = 'Frequency') +
+    facet_wrap(~Category, scales = 'free')
 
 
 

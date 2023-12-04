@@ -23,24 +23,6 @@ get_dataset <- function(){
   
 }
 
-
-range_categories_by_installs <- function(){
-  
-  # Define install ranges
-  install_ranges <- c(0, 100000, 1000000, 10000000, Inf)
-  install_ranges_labels <- c('Low', 'Medium', 'High', 'Very High')
-  
-  # Group based on categories and install ranges in the category
-  category_installs_ranged <- google_playstore %>%
-    mutate(install_range = cut(Maximum.Installs,
-                               breaks = install_ranges, 
-                               labels = install_ranges_labels, 
-                               include.lowest = TRUE))
-  
-  return(category_installs_ranged)
-}
-
-
 installs_to_num <- function(installs){
   
   result <- as.numeric(gsub('[,+]', '', installs))
@@ -60,6 +42,3 @@ num_to_installs <- function(num){
 google_playstore <- get_dataset()
 
 total_apps <- nrow(google_playstore)
-  
-
-

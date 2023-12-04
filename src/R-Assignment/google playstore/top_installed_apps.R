@@ -2,12 +2,14 @@
 top_1000_installed_apps <- google_playstore %>%
   top_n(1000, Maximum.Installs)
   
-# Calculate distribution of 
+# Calculate distribution of top 1000 apps by category as a percentage
 distribution_of_top_1000_installed_apps_by_category <- top_1000_installed_apps %>%
   group_by(Category) %>%
   summarise(perc_of_apps = (n()/1000) * 100) %>%
   arrange(desc(perc_of_apps))
 
+
+# Display distribution as a bar graph.
 distribution_of_top_1000_installed_apps_by_category %>%
   ggplot(aes(x = perc_of_apps, y = reorder(Category, perc_of_apps), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +

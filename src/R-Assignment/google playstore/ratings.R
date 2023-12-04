@@ -1,6 +1,10 @@
 # Get a summary of ratings
 summary(google_playstore$Rating)
 
+rating_summary <- google_playstore %>%
+  summarise(mean = mean(Ratings),
+            median = median(Ratings))
+
 # Number of apps with rating of 0 
 rating_0_apps <- google_playstore %>%
   filter(Rating == 0) %>%

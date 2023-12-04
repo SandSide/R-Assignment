@@ -61,7 +61,7 @@ casino_rating_dist <- google_playstore %>%
 
 # Distribution of ratings for shopping and events categories
 shopping_rating_dist <- google_playstore %>%
-  filter(Category == 'Events',
+  filter(Category == 'Shopping',
          Rating > 0) %>%
   ggplot(aes(x = Rating)) +
   geom_histogram(binwidth = 0.5, color = 4, fill = 'white') +

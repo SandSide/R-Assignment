@@ -1,6 +1,11 @@
+calculate_mid_num <- function(min, max){
+  return ((max - min)/2) + min; 
+}
+
+
 # Find top 1000 apps by installs
 top_1000_installed_apps <- google_playstore %>%
-  top_n(1000, Maximum.Installs)
+  top_n(1000, calculate_mid_num(Minimum.Installs, Maximum.Installs))
   
 # Calculate distribution of top 1000 apps by category as a percentage
 distribution_of_top_1000_installed_apps_by_category <- top_1000_installed_apps %>%
@@ -9,18 +14,23 @@ distribution_of_top_1000_installed_apps_by_category <- top_1000_installed_apps %
   arrange(desc(perc_of_apps))
 
 
-# Display distribution as a bar graph.
+
+# Display distribution by category as a bar graph
 distribution_of_top_1000_installed_apps_by_category %>%
   ggplot(aes(x = perc_of_apps, y = reorder(Category, perc_of_apps), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +
-  labs(title = 'Distribution of Apps by Category in Top 1000 Apps by Installs', x = 'Frequency', y = 'Category', fill = 'Category') +
+  labs(title = 'Distribution of Apps by Category as a Percentage in Top 1000 Apps by Installs', x = 'Percentage of Apps', y = 'Category', fill = 'Category') +
   theme_minimal() + 
   guides(fill = 'none')
+
+
 
 # Are all top 1000 apps free
 top_1000_installed_apps %>%
   filter(Free == 'False') %>%
   summarise(count = n())
+
+
 
 # Find how much top apps are of total installs
 top_1000_stats <- data.frame(
@@ -32,6 +42,8 @@ top_1000_stats <- data.frame(
   )
 )
 
+
+
 # Plotting the results
 ggplot(top_1000_stats, aes(x = installed_apps, y = perc_of_total_installs, fill = installed_apps)) +
   geom_bar(stat = 'identity', color = 'black', alpha = 0.7) +
@@ -40,6 +52,7 @@ ggplot(top_1000_stats, aes(x = installed_apps, y = perc_of_total_installs, fill 
        y = 'Percentage of Total Installs') +
   theme_minimal() + 
   guides(fill = 'none')
+
 
 
 # Find first paid app sorted by max installs

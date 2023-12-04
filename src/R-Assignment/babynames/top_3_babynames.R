@@ -20,19 +20,13 @@ babynames_of_intrest <- males_1900_1999 %>%
   arrange(name)
 
 # 
-babynames_of_intrest_n_years <- babynames_of_intrest %>%
-  filter(year %% 5 == 0)
-  
+
 # Plot a line graph where x-axis represents years, and y-axis represents number of babies born with that name in that year
 ggplot(babynames_of_intrest, aes( x = year, y = n, group = name, color = name)) +
   geom_line(size = 1) +
-  #geom_point(data = babynames_of_intrest_n_years, shape = 19, size = 1.5) +
-  labs(title = "Number of Babies Born Over Years for Top 3 Male Baby Names in US",
+  labs(title = "Popularity of Top 3 Male Baby Names in US between the Years 1900 and 1999",
        x = "Year",
-       y = "Number of Babies Born with the Name") +
+       y = "Number of Babies Born") +
   theme_minimal() +
   scale_y_continuous(breaks = seq(0, max(babynames_of_intrest$n), by = 20000)) +
   scale_x_continuous(breaks = seq(0, max(babynames_of_intrest$n), by = 20))
-
-
-  

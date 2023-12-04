@@ -41,6 +41,14 @@ range_categories_by_installs <- function(){
 }
 
 
+installs_to_num <- function(installs){
+  
+  result <- as.numeric(gsub('[,+]', '', installs))
+  return(result)
+}
+
+installs_to_num('100,000+')
+
 # Store data set
 google_playstore <- get_dataset()
 

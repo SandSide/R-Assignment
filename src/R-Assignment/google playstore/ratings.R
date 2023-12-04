@@ -2,8 +2,9 @@
 summary(google_playstore$Rating)
 
 rating_summary <- google_playstore %>%
-  summarise(mean = mean(Ratings),
-            median = median(Ratings))
+  filter(Rating > 0) %>%
+  summarise(mean = mean(Rating),
+            median = median(Rating))
 
 # Number of apps with rating of 0 
 rating_0_apps <- google_playstore %>%
@@ -18,6 +19,17 @@ rating_dist <- google_playstore %>%
   ggplot(aes(x = Rating)) +
     geom_histogram(binwidth = 0.5, color = 4, fill = 'white') +
     labs(title = 'Distribution of Ratings',
+       x = 'Rating',
+       y = 'Frequency')
+
+
+
+# Histogram of Ratings based on being free or not
+free_rating_dist <- google_playstore %>%
+  filter(Rating > 0) %>%
+  ggplot(aes(x = Rating,  fill = Free)) +
+  geom_histogram(binwidth = 0.5, color = 4) +
+  labs(title = 'Distribution of Ratings',
        x = 'Rating',
        y = 'Frequency')
 

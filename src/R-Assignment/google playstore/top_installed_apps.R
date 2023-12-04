@@ -14,6 +14,11 @@ distribution_of_top_1000_installed_apps_by_category <- top_1000_installed_apps %
   arrange(desc(perc_of_apps))
 
 
+# Find categorizes not in top 1000 installed apps
+categories %>%
+  filter(!(categories$Category %in% top_1000_installed_apps$Category))
+
+
 
 # Display distribution by category as a bar graph
 distribution_of_top_1000_installed_apps_by_category %>%

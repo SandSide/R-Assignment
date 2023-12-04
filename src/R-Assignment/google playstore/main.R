@@ -15,10 +15,7 @@ get_dataset <- function(){
   # Group all gaming categories under gaming category
   google_playstore <- google_playstore %>%
     mutate(Category = if_else(Category %in% gaming_categories, 'Gaming', Category))
-  
-  # Find all categories 
-  categories <- google_playstore %>% select(Category) %>% distinct(Category) 
-  
+
   return(google_playstore)
   
 }
@@ -40,5 +37,9 @@ num_to_installs <- function(num){
 
 # Store data set
 google_playstore <- get_dataset()
+
+
+# Find all categories 
+categories <- google_playstore %>% select(Category) %>% distinct(Category) 
 
 total_apps <- nrow(google_playstore)

@@ -1,4 +1,12 @@
+# Get a summary of ratings
 summary(google_playstore$Rating)
+
+# Number of apps with rating of 0 
+rating_0_apps <- google_playstore %>%
+  filter(Rating == 0) %>%
+  summarise(amount = n(),
+            perc_of_apps = n()/total_apps * 100)
+
 
 # Histogram of Ratings
 rating_dist <- google_playstore %>%
@@ -9,15 +17,18 @@ rating_dist <- google_playstore %>%
        x = 'Rating',
        y = 'Frequency')
 
+
+
 # History of ratings for each category
 category_rating_dist <- google_playstore %>%
   filter(Rating > 0) %>%
   ggplot(aes(x = Rating)) +
   geom_histogram(binwidth = 0.5, color = 4, fill = 'white') +
-  labs(title = 'Distribution of Ratings',
+  labs(title = 'Distribution of Ratings by Category',
        x = 'Rating',
        y = 'Frequency') +
   facet_wrap(~Category, scales = "free")
+
 
 
 # Distribution of ratings for casino
@@ -26,17 +37,29 @@ casino_rating_dist <- google_playstore %>%
          Rating > 0) %>%
   ggplot(aes(x = Rating)) +
   geom_histogram(binwidth = 0.5, color = 4, fill = 'white') +
-  labs(title = 'Distribution of Ratings',
+  labs(title = 'Distribution of Ratings for Casino Category',
        x = 'Rating',
        y = 'Frequency')
   
+
+
 # Distribution of ratings for shopping and events categories
-shopping_events_rating_dist <- google_playstore %>%
-  filter(Category == 'Shopping' | Category == 'Events',
+shopping_rating_dist <- google_playstore %>%
+  filter(Category == 'Events',
          Rating > 0) %>%
   ggplot(aes(x = Rating)) +
   geom_histogram(binwidth = 0.5, color = 4, fill = 'white') +
-  labs(title = 'Distribution of Ratings',
+  labs(title = 'Distribution of Ratings for Shopping Category',
        x = 'Rating',
-       y = 'Frequency') +
-  facet_wrap(~Category, scales = "free")
+       y = 'Frequency')
+
+
+
+events_rating_dist <- google_playstore %>%
+  filter(Category == 'Events',
+         Rating > 0) %>%
+  ggplot(aes(x = Rating)) +
+  geom_histogram(binwidth = 0.5, color = 4, fill = 'white') +
+  labs(title = 'Distribution of Ratings for Events Category',
+       x = 'Rating',
+       y = 'Frequency')

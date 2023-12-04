@@ -1,6 +1,7 @@
 # Get a summary of ratings
 summary(google_playstore$Rating)
 
+# Summaries ratings
 rating_summary <- google_playstore %>%
   filter(Rating > 0) %>%
   summarise(mean = mean(Rating),
@@ -34,7 +35,6 @@ free_rating_dist <- google_playstore %>%
        y = 'Frequency')
 
 
-
 # History of ratings for each category
 category_rating_dist <- google_playstore %>%
   filter(Rating > 0) %>%
@@ -59,7 +59,7 @@ casino_rating_dist <- google_playstore %>%
   
 
 
-# Distribution of ratings for shopping and events categories
+# Distribution of ratings for shopping category
 shopping_rating_dist <- google_playstore %>%
   filter(Category == 'Shopping',
          Rating > 0) %>%
@@ -70,7 +70,7 @@ shopping_rating_dist <- google_playstore %>%
        y = 'Frequency')
 
 
-
+# Distribution of ratings for events category
 events_rating_dist <- google_playstore %>%
   filter(Category == 'Events',
          Rating > 0) %>%
@@ -79,3 +79,22 @@ events_rating_dist <- google_playstore %>%
   labs(title = 'Distribution of Ratings for Events Category',
        x = 'Rating',
        y = 'Frequency')
+
+
+
+# History of ratings for multiple install ranges
+install_ranges_rating_dist <- google_playstore %>%
+  mutate(install_num = installs_to_num(Installs)) %>%
+  filter(Rating > 0,
+         install_num >= 1000,
+         install_num <= 100000000) %>%
+  group_by(Installs) %>%
+  ggplot(aes(x = Rating)) +
+  geom_histogram(binwidth = 0.5, color = 4, fill = 'white') +
+  labs(title = 'Distribution of Ratings for Install 10,000+ to 100,000,000+',
+       x = 'Rating',
+       y = 'Frequency') +
+  facet_wrap(~install_num, scales = 'free', labeller = labeller(install_num = num_to_installs), ncol = 3)
+
+
+

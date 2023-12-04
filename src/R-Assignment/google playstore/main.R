@@ -50,7 +50,7 @@ installs_to_num <- function(installs){
 
 num_to_installs <- function(num){
   
-  result <- format(num, big.mark = ',', scientific = FALSE)
+  result <- prettyNum(num, big.mark = ',', scientific = FALSE)
   result <- paste0(str_trim(result), '+')
     
   return(result)

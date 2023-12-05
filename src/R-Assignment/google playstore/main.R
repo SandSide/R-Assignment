@@ -48,3 +48,13 @@ google_playstore <- get_dataset()
 categories <- google_playstore %>% select(Category) %>% distinct(Category) 
 
 total_apps <- nrow(google_playstore)
+
+# Find total installs
+total_installs <- sum(google_playstore$Maximum.Installs)
+
+total_installs <- google_playstore %>%
+  mutate(installs_arpox = calculate_mid_num(Minimum.Installs, Maximum.Installs)) %>%
+  filter(!is.na(installs_arpox)) %>%
+  summarise(total_installs = sum(installs_arpox)) %>%
+  pull(total_installs)
+  

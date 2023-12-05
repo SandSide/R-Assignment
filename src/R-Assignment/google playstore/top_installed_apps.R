@@ -52,9 +52,9 @@ top_1000_installed_apps %>%
 top_1000_stats <- data.frame(
   installed_apps = c('Top 1000', 'Top 100', 'Top 10'),
   perc_of_total_installs = c(
-    google_playstore %>% top_n(1000, Maximum.Installs) %>% summarise(perc_of_total_installs = sum(Maximum.Installs) / total_installs * 100) %>% pull(perc_of_total_installs),
-    google_playstore %>% top_n(100, Maximum.Installs) %>% summarise(perc_of_total_installs = sum(Maximum.Installs) / total_installs * 100) %>% pull(perc_of_total_installs),
-    google_playstore %>% top_n(10, Maximum.Installs) %>% summarise(perc_of_total_installs = sum(Maximum.Installs) / total_installs * 100) %>% pull(perc_of_total_installs)
+    top_1000_installed_apps %>% slice_head(n = 1000) %>% summarise(perc_of_total_installs = sum(aprox_installs) / total_installs * 100) %>% pull(perc_of_total_installs),
+    top_1000_installed_apps %>% slice_head(n = 100) %>% summarise(perc_of_total_installs = sum(aprox_installs) / total_installs * 100) %>% pull(perc_of_total_installs),
+    top_1000_installed_apps %>% slice_head(n = 10) %>% summarise(perc_of_total_installs = sum(aprox_installs) / total_installs * 100) %>% pull(perc_of_total_installs)
   )
 )
 

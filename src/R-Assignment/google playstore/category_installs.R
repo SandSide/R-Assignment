@@ -1,6 +1,3 @@
-# Find total installs
-total_installs <- sum(google_playstore$Maximum.Installs)
-
 # Find install total for each category
 category_installs <- google_playstore %>% 
   group_by(Category) %>% 

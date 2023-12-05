@@ -25,7 +25,7 @@ distribution_of_top_1000_installed_apps_by_category <- top_1000_installed_apps %
 categories %>%
   filter(!(categories$Category %in% top_1000_installed_apps$Category))
 
-# Find amout of apps that are Editors Choice in top 1000
+# Find amount of apps that are Editors Choice in top 1000
 top_1000_installed_apps %>%
   group_by(Editors.Choice) %>%
   summarise(amount = n())
@@ -73,5 +73,7 @@ ggplot(top_1000_stats, aes(x = installed_apps, y = perc_of_total_installs, fill 
 
 # Find first paid app sorted by max installs
 first_paid_app <- google_playstore[which(google_playstore$Free == 'False')[1], ]
+calculate_mid_num(first_paid_app$Minimum.Installs, first_paid_app$Maximum.Installs)
+
 
          

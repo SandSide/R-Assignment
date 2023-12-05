@@ -35,6 +35,11 @@ num_to_installs <- function(num){
   return(result)
 }
 
+calculate_mid_num <- function(min, max){
+  return ((max - min)/2) + min; 
+}
+
+
 # Store data set
 google_playstore <- get_dataset()
 

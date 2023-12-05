@@ -1,6 +1,3 @@
-calculate_mid_num <- function(min, max){
-  return ((max - min)/2) + min; 
-}
 
 
 # Find top 1000 apps by installs

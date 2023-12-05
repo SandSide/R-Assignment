@@ -2,15 +2,10 @@
 
 # Find top 1000 apps by installs
 top_1000_installed_apps <- google_playstore %>%
-  top_n(1000, calculate_mid_num(Minimum.Installs, Maximum.Installs))
+  mutate(aprox_installs = calculate_mid_num(Minimum.Installs, Maximum.Installs)) %>%
+  arrange(desc(aprox_installs)) %>%
+  slice_head(n = 1000)
 
-
-# Find top 10 apps by installs
-top_10_installed_apps <- top_1000_installed_apps %>%
-  slice_head(n = 10) %>%
-  mutate(installs = calculate_mid_num(Minimum.Installs, Maximum.Installs),
-         installs = prettyNum(installs, big.mark = ',', scientific = FALSE)) %>%
-  select(App.Name, Rating, installs, Developer.Id)
   
 # Calculate distribution of top 1000 apps by category as a percentage
 distribution_of_top_1000_installed_apps_by_category <- top_1000_installed_apps %>%

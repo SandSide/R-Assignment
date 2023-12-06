@@ -2,6 +2,7 @@
 
 # Graphs ----
 
+# Figure I1
 # Display distribution of apps by installs
 google_playstore %>%
   filter(!is.na(Installs),

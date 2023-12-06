@@ -1,3 +1,7 @@
+# This script analyses installs based on category
+
+# Analyse Data ----
+
 # Find install total for each category
 category_installs <- google_playstore %>% 
   group_by(Category) %>% 
@@ -15,7 +19,9 @@ category_installs %>%
             median_perc = median(perc))
 
 
-# Display total installs per category as a percatnge of total installs
+# Graphs ----
+
+# Display total installs per category as a percentage of total installs
 category_installs %>% 
   ggplot(aes(x = perc, y = reorder(Category, perc), fill = Category)) +
   geom_bar(stat = 'identity', width = 1, color = 'white') +

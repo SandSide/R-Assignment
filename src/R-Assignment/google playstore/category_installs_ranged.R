@@ -1,3 +1,7 @@
+# This script analyses the databset based on category installs and install ranges (1000+, 10 +)
+
+# Analyse ----
+
 # Sort Installs + based on value
 sorted_install_range <- google_playstore %>% 
   distinct(Installs) %>%
@@ -8,7 +12,6 @@ sorted_install_range <- google_playstore %>%
   mutate(Installs = format(Installs, big.mark = ',', scientific = FALSE),
          Installs =  paste0(str_trim(Installs), '+'))
 
-
 # Count apps amount based on installs
 app_count_by_installs <- google_playstore %>%
   group_by(Installs) %>%
@@ -18,6 +21,8 @@ app_count_by_installs <- google_playstore %>%
 
 # Sort based on installs
 app_count_by_installs <- app_count_by_installs[match(sorted_install_range$Installs, app_count_by_installs$Installs), ]
+
+# Graphs ----
 
 # Display distribution of apps by installs
 google_playstore %>%
